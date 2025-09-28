@@ -27,12 +27,12 @@ SET time_zone = "+00:00";
 -- Table structure for table `accounts`
 --
 
-CREATE TABLE `accounts` (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('admin','receptionist','payment_manager','customer') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE accounts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('admin','receptionist','payment_manager','customer') NOT NULL
+);ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `accounts`
@@ -50,13 +50,13 @@ INSERT INTO `accounts` (`id`, `username`, `password`, `role`) VALUES
 -- Table structure for table `customers`
 --
 
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
-  `account_id` int(11) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE customers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  account_id INT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  FOREIGN KEY (account_id) REFERENCES accounts(id)
+); ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -64,11 +64,13 @@ CREATE TABLE `customers` (
 -- Table structure for table `employees`
 --
 
-CREATE TABLE `employees` (
-  `id` int(11) NOT NULL,
-  `account_id` int(11) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE employees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  account_id INT,
+  name VARCHAR(100) NOT NULL,
+  position VARCHAR(50),
+  FOREIGN KEY (account_id) REFERENCES accounts(id)
+); ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -76,12 +78,13 @@ CREATE TABLE `employees` (
 -- Table structure for table `rooms`
 --
 
-CREATE TABLE `rooms` (
-  `id` int(11) NOT NULL,
-  `room_number` varchar(10) NOT NULL,
-  `type` varchar(50) DEFAULT NULL,
-  `status` enum('available','occupied','maintenance') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE rooms (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  type VARCHAR(50) NOT NULL,
+  floor INT NOT NULL,
+  code VARCHAR(10) UNIQUE NOT NULL,
+  status ENUM('available','occupied','maintenance') DEFAULT 'available'
+); ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rooms`
@@ -93,82 +96,37 @@ INSERT INTO `rooms` (`id`, `room_number`, `type`, `status`) VALUES
 (3, '103', 'Suite', 'maintenance');
 
 --
--- Indexes for dumped tables
+-- Table structure for table `prices`
 --
 
---
--- Indexes for table `accounts`
---
-ALTER TABLE `accounts`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+CREATE TABLE prices (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category VARCHAR(50) NOT NULL,
+  amount DECIMAL(10,2) NOT NULL CHECK (amount >= 0)
+); ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for table `customers`
---
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `account_id` (`account_id`);
-
---
--- Indexes for table `employees`
---
-ALTER TABLE `employees`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `account_id` (`account_id`);
-
---
--- Indexes for table `rooms`
---
-ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `room_number` (`room_number`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- Table structure for table `policies`
 --
 
---
--- AUTO_INCREMENT for table `accounts`
---
-ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+CREATE TABLE policies (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  cancellation_hours INT NOT NULL
+);
 
 --
--- AUTO_INCREMENT for table `customers`
---
-ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `employees`
---
-ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `rooms`
---
-ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Constraints for dumped tables
+-- Table structure for table `reservations`
 --
 
---
--- Constraints for table `customers`
---
-ALTER TABLE `customers`
-  ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
-
---
--- Constraints for table `employees`
---
-ALTER TABLE `employees`
-  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE reservations (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT NOT NULL,
+  room_id INT NOT NULL,
+  policy_id INT NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  FOREIGN KEY (customer_id) REFERENCES customers(id),
+  FOREIGN KEY (room_id) REFERENCES rooms(id),
+  FOREIGN KEY (policy_id) REFERENCES policies(id)
+); ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

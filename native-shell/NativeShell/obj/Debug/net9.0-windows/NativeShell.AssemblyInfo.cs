@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NativeShell")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27c634df25b74603e72ee06207d1ff8cbb879c24")]
 [assembly: System.Reflection.AssemblyProductAttribute("NativeShell")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NativeShell")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
