@@ -1,15 +1,39 @@
 import React, { useState } from 'react';
 import './ReceptionistPortal.css';
+import room101 from '../images/room101.jpg';
+import room102 from '../images/room102.jpg';
+import room103 from '../images/room103.jpg';
+
+const rooms = [
+  { id: 1, room_number: '101', type: 'Single', status: 'available', photo: room101 },
+  { id: 2, room_number: '102', type: 'Double', status: 'occupied', photo: room102 },
+  { id: 3, room_number: '103', type: 'Suite', status: 'maintenance', photo: room103 }
+];
 
 const ReceptionistPortal = () => {
   const [view, setView] = useState('checkin');
+  const [roomsState, setRooms] = useState(rooms);
 
-  const rooms = [
-    { id: 1, room_number: '101', type: 'Single', status: 'available', photo: '/images/room101.jpg' },
-    { id: 2, room_number: '102', type: 'Double', status: 'occupied', photo: '/images/room102.jpg' },
-    { id: 3, room_number: '103', type: 'Suite', status: 'maintenance', photo: '/images/room103.jpg' }
-  ];
   
+  const handleStatusChange = async (roomId, newStatus) => {
+    try {
+      const res = await fetch(`http://localhost:3001/api/rooms/${roomId}/status`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      });
+      if (res.ok) {
+        setRooms(rooms =>
+          rooms.map(room =>
+            room.id === roomId ? { ...room, status: newStatus } : room
+          )
+        );
+      }
+    } catch (err) {
+      alert('Failed to update status');
+    }
+  };
+
   return (
     <div className="receptionist-portal">
       <h2>Receptionist Portal</h2>
@@ -29,6 +53,9 @@ const ReceptionistPortal = () => {
                   <img src={room.photo} alt={`Room ${room.room_number}`} style={{ width: '120px', height: '80px' }} />
                   <div>Room {room.room_number} - {room.type}</div>
                   <div>Status: {room.status}</div>
+                  <button onClick={() => handleStatusChange(room.id, room.status === 'available' ? 'occupied' : 'available')}>
+                    Toggle Status
+                  </button>
                 </div>
               ))}
             </div>

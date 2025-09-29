@@ -5,7 +5,7 @@ import Login from './components/Login';
 import ReceptionistPortal from './components/ReceptionistPortal';
 import AdminPortal from './components/AdminPortal';
 import CustomerPortal from './components/CustomerPortal';
-import PaymentPortal from './components/PaymentPortal';
+import PaymentPortal from './components/PaymentManagement';
 
 function App() {
   const [user, setUser] = useState(null);

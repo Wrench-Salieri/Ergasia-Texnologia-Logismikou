@@ -117,6 +117,22 @@ app.post('/api/policies', async (req, res) => {
   }
 });
 
+// Add ability to change room status
+app.post('/api/rooms/:id/status', async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    await conn.query('UPDATE rooms SET status = ? WHERE id = ?', [status, id]);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  } finally {
+    if (conn) conn.release();
+  }
+});
+
 // Start server
 const PORT = 3001;
 app.listen(PORT, () => {
