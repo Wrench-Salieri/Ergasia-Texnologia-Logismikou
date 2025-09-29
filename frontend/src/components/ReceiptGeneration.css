@@ -1,0 +1,192 @@
+.receipt-generation {
+  color: #c9b5b5;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h3 {
+  color: #c9b5b5;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.refresh-btn {
+  padding: 0.5rem 1rem;
+  background: #0350a2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.refresh-btn:hover {
+  background: #0056b3;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #c9b5b5;
+  font-size: 1.1rem;
+}
+
+.error-message {
+  background: #dc3545;
+  color: white;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  background: #28a745;
+  color: white;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.no-data {
+  text-align: center;
+  padding: 3rem;
+  color: #c9b5b5;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.reservations-list {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .reservations-list {
+    margin: 0 0.5rem;
+  }
+}
+
+.reservation-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reservation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.reservation-info h4 {
+  margin: 0 0 0.5rem 0;
+  color: #c9b5b5;
+  font-size: 1.2rem;
+}
+
+.customer-name {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+.receipt-status .status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: white;
+}
+
+.status-badge.issued {
+  background: #28a745;
+}
+
+.status-badge.pending {
+  background: #ffa500;
+}
+
+.reservation-details {
+  margin-bottom: 1.5rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.3rem 0;
+}
+
+.detail-row .label {
+  font-weight: 500;
+  color: #a0a0a0;
+}
+
+.amount {
+  font-weight: bold;
+  color: #28a745;
+  font-size: 1.1rem;
+}
+
+.file-path {
+  color: #17a2b8;
+  font-family: monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+.receipt-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.generate-btn {
+  padding: 0.6rem 1.2rem;
+  background: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.generate-btn:hover:not(:disabled) {
+  background: #138496;
+}
+
+.generate-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.send-btn {
+  padding: 0.6rem 1.2rem;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.send-btn:hover:not(:disabled) {
+  background: #218838;
+}
+
+.send-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}

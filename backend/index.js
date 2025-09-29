@@ -12,7 +12,7 @@ app.use(express.json());
 const pool = mariadb.createPool({
   host: 'localhost',
   user: 'root',
-  password: 'password',
+  password: '',
   database: 'hotel_management',
   connectionLimit: 5
 });
