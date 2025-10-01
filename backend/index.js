@@ -133,8 +133,38 @@ app.post('/api/rooms/:id/status', async (req, res) => {
   }
 });
 
+
+
 // Start server
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+app.get('/api/rooms', async (req, res) => {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const rows = await conn.query('SELECT id, room_number, type, status FROM rooms');
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  } finally {
+    if (conn) conn.release();
+  }
+});
+
+// Get room statuses
+app.get('/api/rooms/statuses', async (req, res) => {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const rows = await conn.query('SELECT id, status FROM rooms');
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching room statuses:', err);
+    res.status(500).json({ error: 'Database error' });
+  } finally {
+    if (conn) conn.release();
+  }
 });

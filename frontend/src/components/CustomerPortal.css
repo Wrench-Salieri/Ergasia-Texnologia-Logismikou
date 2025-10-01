@@ -35,3 +35,20 @@
   min-height: 180px;
   box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 }
+
+.room-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.search-bar {
+  width: 90%;
+  padding: 0.7rem;
+  margin: 0.5rem 0;
+  background-color: #333;
+  color: #ccc;
+  border: 1px solid #650389;
+  border-radius: 4px;
+}
