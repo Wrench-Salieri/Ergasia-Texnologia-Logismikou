@@ -8,6 +8,8 @@ const CustomerPortal = () => {
   const [view, setView] = useState('rooms');
   const [showSearch, setShowSearch] = useState(false);
   const [query, setQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
   const [rooms, setRooms] = useState([
     { id: 1, room_number: '101', type: 'Single', photo: room101, status: 'unknown' },
     { id: 2, room_number: '102', type: 'Double', photo: room102, status: 'unknown' },
@@ -42,13 +44,16 @@ useEffect(() => {
 }, []);
 
 // Filter room
-const filteredRooms = query
-  ? rooms.filter(room =>
-      room.room_number === query ||
-      room.type.toLowerCase() === query.toLowerCase() ||
-      room.status.toLowerCase() === query.toLowerCase()
-    )
-  : rooms;
+const filteredRooms = rooms.filter(room => {
+    const matchesQuery =
+      !query ||
+      room.room_number.includes(query) ||
+      room.type.toLowerCase().includes(query.toLowerCase()) ||
+      room.status.toLowerCase().includes(query.toLowerCase());
+    const matchesType = !typeFilter || room.type === typeFilter;
+    const matchesStatus = !statusFilter || room.status === statusFilter;
+    return matchesQuery && matchesType && matchesStatus;
+  });
 
 
   return (
@@ -69,6 +74,19 @@ const filteredRooms = query
           <button onClick={() => setShowSearch(false)}>Close</button>
         </div>
       )}
+      <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem', justifyContent: 'center', alignItems: 'center' }}>
+        <select value={typeFilter} onChange={e => setTypeFilter(e.target.value)}>
+          <option value="">All Types</option>
+          <option value="Single">Single</option>
+          <option value="Double">Double</option>
+          <option value="Suite">Suite</option>
+        </select>
+        <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+          <option value="">All Statuses</option>
+          <option value="available">Available</option>
+        </select>
+        <button onClick={() => { setTypeFilter(''); setStatusFilter(''); }}>Clear Filters</button>
+      </div>
       <div className="portal-content">
         {view === 'rooms' && (
           <div>
