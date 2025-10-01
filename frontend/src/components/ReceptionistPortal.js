@@ -22,7 +22,7 @@ const initialCustomers = [
 ];
 
 
-const ReceptionistPortal = () => {
+const ReceptionistPortal = ({ onLogout }) => {
   const [view, setView] = useState('checkin');
   const [roomsState, setRooms] = useState(
     rooms.map(r => ({ ...r, status: 'loading' }))
@@ -30,8 +30,8 @@ const ReceptionistPortal = () => {
   const [customers, setCustomers] = useState(initialCustomers);
 
 // Log out Function
-const handleReload = () => {
-  window.location.reload();
+const handleLogout = () => {
+  onLogout();
 };
 
   // Fetch statuses from backend
@@ -107,7 +107,7 @@ const handleReload = () => {
         <button onClick={() => setView('checkin')}>Check-in/Check-out</button>
         <button onClick={() => setView('availability')}>Room Availability</button>
         <button onClick={() => setView('customers')}>Customers</button>
-        <button onClick={handleReload}>Log-Out</button>
+        <button onClick={handleLogout}>Log-Out</button>
       </nav>
       <div className="portal-content">
         {view === 'checkin' && (

@@ -1,54 +1,575 @@
-.customer-portal {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 2rem;
-  background: #430b60;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-}
-.customer-portal h2 {
-  color: #c9b5b5;  
-  margin-bottom: 1.5rem;
-  user-select: none;
-  pointer-events: none;
-}
-.customer-portal nav {
-  margin-bottom: 1.5rem;
-}
-.customer-portal nav button {
-  margin-right: 1rem;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 10px;
-  background: #0350a2;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-}
-.customer-portal nav button:hover {
-  background: #0056b3;
-}
-.portal-content {
-  background: #650389;
-  padding: 1.5rem;
-  border-radius: 6px;
-  min-height: 180px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+/* Hotel Booking App Styles */
+.hotel-booking-app {
+  min-height: 100vh;
+  background-color: #F5F5F0;
 }
 
-.room-list {
+/* Header Styles */
+.hotel-header {
+  background: linear-gradient(135deg, #5D866C 0%, #4a6b57 100%);
+  color: white;
+  padding: 2rem 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.search-bar {
-  width: 90%;
-  padding: 0.7rem;
-  margin: 0.5rem 0;
-  background-color: #333;
-  color: #ccc;
-  border: 1px solid #650389;
-  border-radius: 4px;
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.hotel-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo-section h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.logo-section p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0 0;
+  opacity: 0.9;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info span {
+  font-weight: 500;
+}
+
+/* Search Section */
+.search-section {
+  background-color: #ffffff;
+  padding: 3rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.search-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.search-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  align-items: end;
+  background-color: #E6D8C3;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-field label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.search-field input,
+.search-field select {
+  padding: 1rem;
+  border: 2px solid #E6D8C3;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.search-field input:focus,
+.search-field select:focus {
+  outline: none;
+  border-color: #5D866C;
+  box-shadow: 0 0 0 3px rgba(93, 134, 108, 0.1);
+}
+
+.search-btn {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  height: fit-content;
+}
+
+/* Rooms Section */
+.rooms-section {
+  padding: 4rem 0;
+}
+
+.rooms-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.rooms-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.rooms-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 20px;
+  max-width: 1800px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+.room-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+  min-height: 300px;
+}
+
+.room-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.room-card img {
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 240px;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.room-card button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.modal-content {
+  background-color: #ffffff !important;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem 2rem;
+  border-bottom: 1px solid #E6D8C3;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #E6D8C3;
+  color: #333;
+}
+
+/* Booking Form */
+.booking-form {
+  padding: 2rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 1rem;
+  border: 2px solid #E6D8C3;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #5D866C;
+  box-shadow: 0 0 0 3px rgba(93, 134, 108, 0.1);
+  background-color: #ffffff;
+}
+
+/* Specific styles for date inputs and calendar */
+.form-group input[type="date"],
+.search-field input[type="date"] {
+  background-color: #ffffff !important;
+  color: #333 !important;
+  border: 2px solid #E6D8C3 !important;
+}
+
+.form-group input[type="date"]:focus,
+.search-field input[type="date"]:focus {
+  background-color: #ffffff !important;
+  color: #333 !important;
+  border-color: #5D866C !important;
+}
+
+/* Ensure all input types have white background */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.search-field input[type="text"] {
+  background-color: #ffffff !important;
+  color: #333 !important;
+}
+
+/* Remove purple outline and set custom focus styles */
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus,
+.search-field input[type="text"]:focus {
+  outline: none !important;
+  border-color: #5D866C !important;
+  box-shadow: 0 0 0 3px rgba(93, 134, 108, 0.1) !important;
+  background-color: #ffffff !important;
+}
+
+/* Specific styles for select dropdowns */
+.form-group select,
+.search-field select {
+  background-color: #ffffff !important;
+  color: #333 !important;
+  border: 2px solid #E6D8C3 !important;
+}
+
+.form-group select:focus,
+.search-field select:focus {
+  background-color: #ffffff !important;
+  color: #333 !important;
+  border-color: #5D866C !important;
+}
+
+/* Override browser default select styling */
+select {
+  background-color: #ffffff !important;
+  color: #333 !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Remove all browser default outlines and set custom focus styles */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: #5D866C !important;
+  box-shadow: 0 0 0 3px rgba(93, 134, 108, 0.1) !important;
+}
+
+/* Force all input borders to be light brown, not purple */
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  border: 2px solid #E6D8C3 !important;
+  background-color: #ffffff !important;
+  color: #333 !important;
+}
+
+/* Override any purple borders specifically */
+.booking-form input[type="text"],
+.booking-form input[type="email"],
+.booking-form input[type="tel"] {
+  border: 2px solid #E6D8C3 !important;
+  background-color: #ffffff !important;
+  color: #333 !important;
+}
+
+/* Specific override for any remaining purple outlines */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none !important;
+  border-color: #5D866C !important;
+  box-shadow: 0 0 0 3px rgba(93, 134, 108, 0.1) !important;
+}
+
+/* Global override for any purple/magenta colors */
+* {
+  border-color: #E6D8C3 !important;
+}
+
+/* But allow green for focus states */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #5D866C !important;
+}
+
+/* Specific targeting for form inputs */
+.booking-form *,
+.modal-content * {
+  border-color: #E6D8C3 !important;
+}
+
+.booking-form input:focus,
+.booking-form select:focus,
+.modal-content input:focus,
+.modal-content select:focus {
+  border-color: #5D866C !important;
+}
+
+/* Success Notification */
+.success-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.success-content {
+  background-color: #ffffff;
+  border: 2px solid #5D866C;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 300px;
+}
+
+.success-icon {
+  background-color: #5D866C;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.success-text h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.success-text p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Booking Summary */
+.booking-summary {
+  background-color: #E6D8C3;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.booking-summary h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.summary-item,
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.summary-total {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #5D866C;
+  border-top: 1px solid #C2A68C;
+  padding-top: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.modal-actions button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 120px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .search-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .room-card {
+    flex-direction: column;
+  }
+  
+  .room-image {
+    width: 100%;
+    min-width: 100%;
+    height: 250px;
+  }
+  
+  .room-booking {
+    border-left: none;
+    border-top: 1px solid #E6D8C3;
+    padding-left: 0;
+    padding-top: 1rem;
+    margin-left: 0;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .room-price-section {
+    text-align: left;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .modal-actions button {
+    width: 100%;
+  }
 }

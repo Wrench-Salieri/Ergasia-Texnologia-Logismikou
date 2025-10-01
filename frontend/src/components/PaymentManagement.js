@@ -1,11 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './PaymentManagement.css';
 
-const PaymentManagement = ({ token }) => {
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+const PaymentManagement = () => {
+  const [payments, setPayments] = useState([
+    {
+      id: 1,
+      customer_name: 'John Doe',
+      customer_email: 'john.doe@email.com',
+      room_type: 'Double',
+      room_code: '102',
+      start_date: '2025-10-10',
+      end_date: '2025-10-12',
+      payment_amount: 150,
+      payment_status: 'complete',
+      policy_name: 'Standard'
+    },
+    {
+      id: 2,
+      customer_name: 'Jane Smith',
+      customer_email: 'jane.smith@email.com',
+      room_type: 'Single',
+      room_code: '101',
+      start_date: '2025-10-11',
+      end_date: '2025-10-13',
+      payment_amount: 120,
+      payment_status: 'pending',
+      policy_name: 'Flexible'
+    },
+    {
+      id: 3,
+      customer_name: 'Customer One',
+      customer_email: 'customer1@email.com',
+      room_type: 'Double',
+      room_code: '102',
+      start_date: '2025-10-15',
+      end_date: '2025-10-18',
+      payment_amount: 150,
+      payment_status: 'pending',
+      policy_name: 'Standard'
+    }
+  ]);
+
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [paymentData, setPaymentData] = useState({
@@ -13,72 +48,25 @@ const PaymentManagement = ({ token }) => {
     transaction_id: '',
     notes: ''
   });
-
-  useEffect(() => {
-    fetchPendingPayments();
-  }, []);
-
-  const fetchPendingPayments = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('http://localhost:3001/api/payments/pending', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch payments');
-      }
-
-      const data = await response.json();
-      setPayments(data.data || []);
-    } catch (err) {
-      setError('Error loading payments: ' + err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handlePaymentUpdate = async (reservationId, status) => {
-    try {
-      const response = await fetch('http://localhost:3001/api/payments/update', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          reservation_id: reservationId,
-          payment_status: status,
-          payment_method: paymentData.payment_method,
-          transaction_id: paymentData.transaction_id,
-          notes: paymentData.notes
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update payment');
-      }
-
-      const result = await response.json();
-      setSuccess(result.message);
-      setShowModal(false);
-      setSelectedPayment(null);
-      setPaymentData({ payment_method: 'cash', transaction_id: '', notes: '' });
-      fetchPendingPayments();
-      
-      // Clear success message after 3 seconds
-      setTimeout(() => setSuccess(''), 3000);
-    } catch (err) {
-      setError('Error updating payment: ' + err.message);
-    }
-  };
+  const [success, setSuccess] = useState('');
 
   const openPaymentModal = (payment) => {
     setSelectedPayment(payment);
     setShowModal(true);
+  };
+
+  const handlePaymentUpdate = (id, status) => {
+    setPayments((prev) =>
+      prev.map((p) =>
+        p.id === id ? { ...p, payment_status: status } : p
+      )
+    );
+    setShowModal(false);
+    setSelectedPayment(null);
+    setPaymentData({ payment_method: 'cash', transaction_id: '', notes: '' });
+    setSuccess(`Payment #${id} updated to "${status}"`);
+
+    setTimeout(() => setSuccess(''), 3000);
   };
 
   const getStatusColor = (status) => {
@@ -90,24 +78,20 @@ const PaymentManagement = ({ token }) => {
     }
   };
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('el-GR');
-  };
-
-  if (loading) {
-    return <div className="loading">Loading payments...</div>;
-  }
+  const formatDate = (date) => new Date(date).toLocaleDateString('el-GR');
 
   return (
     <div className="payment-management">
       <div className="section-header">
         <h3>Διαχείριση Πληρωμών</h3>
-        <button onClick={fetchPendingPayments} className="refresh-btn">
+        <button
+          className="refresh-btn"
+          onClick={() => setSuccess('Refreshed!')}
+        >
           Ανανέωση
         </button>
       </div>
 
-      {error && <div className="error-message">{error}</div>}
       {success && <div className="success-message">{success}</div>}
 
       <div className="payments-list">
@@ -122,11 +106,11 @@ const PaymentManagement = ({ token }) => {
                   <span className="customer-name">{payment.customer_name}</span>
                 </div>
                 <div className="payment-status">
-                  <span 
+                  <span
                     className="status-badge"
                     style={{ backgroundColor: getStatusColor(payment.payment_status) }}
                   >
-                    {payment.payment_status === 'pending' ? 'Εκκρεμής' : 
+                    {payment.payment_status === 'pending' ? 'Εκκρεμής' :
                      payment.payment_status === 'paid' ? 'Πληρωμένη' : 'Απορριφθείσα'}
                   </span>
                 </div>
@@ -156,28 +140,20 @@ const PaymentManagement = ({ token }) => {
               </div>
 
               <div className="payment-actions">
-                {payment.payment_status === 'pending' && (
-                  <>
-                    <button 
-                      className="approve-btn"
-                      onClick={() => openPaymentModal(payment)}
-                    >
-                      Επιβεβαίωση Πληρωμής
-                    </button>
-                    <button 
-                      className="reject-btn"
-                      onClick={() => handlePaymentUpdate(payment.id, 'rejected')}
-                    >
-                      Απόρριψη Πληρωμής
-                    </button>
-                  </>
-                )}
-                {payment.payment_status === 'rejected' && (
-                  <button 
+                {(payment.payment_status === 'pending' || payment.payment_status === 'rejected') && (
+                  <button
                     className="approve-btn"
                     onClick={() => openPaymentModal(payment)}
                   >
-                    Επανεξέταση
+                    {payment.payment_status === 'pending' ? 'Επιβεβαίωση Πληρωμής' : 'Επανεξέταση'}
+                  </button>
+                )}
+                {payment.payment_status === 'pending' && (
+                  <button
+                    className="reject-btn"
+                    onClick={() => handlePaymentUpdate(payment.id, 'rejected')}
+                  >
+                    Απόρριψη Πληρωμής
                   </button>
                 )}
               </div>
@@ -186,29 +162,22 @@ const PaymentManagement = ({ token }) => {
         )}
       </div>
 
-      {/* Payment Confirmation Modal */}
+      {/* Modal */}
       {showModal && selectedPayment && (
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
               <h3>Επιβεβαίωση Πληρωμής</h3>
-              <button 
-                className="close-btn"
-                onClick={() => setShowModal(false)}
-              >
-                ×
-              </button>
+              <button className="close-btn" onClick={() => setShowModal(false)}>×</button>
             </div>
-            
             <div className="modal-body">
               <p>Κράτηση #{selectedPayment.id} - {selectedPayment.customer_name}</p>
               <p>Ποσό: €{selectedPayment.payment_amount}</p>
-              
               <div className="form-group">
                 <label>Μέθοδος Πληρωμής:</label>
-                <select 
+                <select
                   value={paymentData.payment_method}
-                  onChange={(e) => setPaymentData({...paymentData, payment_method: e.target.value})}
+                  onChange={(e) => setPaymentData({ ...paymentData, payment_method: e.target.value })}
                 >
                   <option value="cash">Μετρητά</option>
                   <option value="card">Κάρτα</option>
@@ -216,41 +185,28 @@ const PaymentManagement = ({ token }) => {
                   <option value="online">Online</option>
                 </select>
               </div>
-              
               <div className="form-group">
                 <label>Transaction ID (προαιρετικό):</label>
-                <input 
+                <input
                   type="text"
                   value={paymentData.transaction_id}
-                  onChange={(e) => setPaymentData({...paymentData, transaction_id: e.target.value})}
+                  onChange={(e) => setPaymentData({ ...paymentData, transaction_id: e.target.value })}
                   placeholder="π.χ. TXN123456"
                 />
               </div>
-              
               <div className="form-group">
                 <label>Σημειώσεις (προαιρετικό):</label>
-                <textarea 
+                <textarea
                   value={paymentData.notes}
-                  onChange={(e) => setPaymentData({...paymentData, notes: e.target.value})}
+                  onChange={(e) => setPaymentData({ ...paymentData, notes: e.target.value })}
                   placeholder="Επιπλέον σημειώσεις..."
                   rows="3"
                 />
               </div>
             </div>
-            
             <div className="modal-footer">
-              <button 
-                className="cancel-btn"
-                onClick={() => setShowModal(false)}
-              >
-                Ακύρωση
-              </button>
-              <button 
-                className="confirm-btn"
-                onClick={() => handlePaymentUpdate(selectedPayment.id, 'paid')}
-              >
-                Επιβεβαίωση Πληρωμής
-              </button>
+              <button className="cancel-btn" onClick={() => setShowModal(false)}>Ακύρωση</button>
+              <button className="confirm-btn" onClick={() => handlePaymentUpdate(selectedPayment.id, 'paid')}>Επιβεβαίωση Πληρωμής</button>
             </div>
           </div>
         </div>

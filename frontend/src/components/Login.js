@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import logo from '../images/hotel-icon-logo.svg'
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, onCancel }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -48,7 +48,7 @@ const Login = ({ onLogin }) => {
         />
         <button type="submit">Login</button>
         {error && <div className="error">{error}</div>}
-        <button type="registration">Register</button>
+        <button type="button" onClick={onCancel}>Cancel</button>
       </form>
     </div>
   );

@@ -1,7 +1,10 @@
 .payment-management {
-  color: #c9b5b5;
+  color: #333;
   max-width: 100%;
   margin: 0 auto;
+  background-color: #F5F5F0;
+  min-height: 100vh;
+  padding: 2rem;
 }
 
 .section-header {
@@ -11,30 +14,57 @@
   margin-bottom: 2rem;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .section-header h3 {
-  color: #c9b5b5;
+  color: #333;
   margin: 0;
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .refresh-btn {
   padding: 0.5rem 1rem;
-  background: #0350a2;
+  background: #5D866C;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .refresh-btn:hover {
-  background: #0056b3;
+  background: #4a6b5a;
+  transform: translateY(-2px);
+}
+
+.logout-btn {
+  padding: 0.5rem 1rem;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #c82333;
+  transform: translateY(-2px);
 }
 
 .loading {
   text-align: center;
   padding: 2rem;
-  color: #c9b5b5;
+  color: #333;
   font-size: 1.1rem;
 }
 
@@ -57,16 +87,21 @@
 .no-data {
   text-align: center;
   padding: 3rem;
-  color: #c9b5b5;
+  color: #333;
   font-size: 1.1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #E6D8C3;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .payments-list {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 1.5rem;
   margin: 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {
@@ -76,10 +111,17 @@
 }
 
 .payment-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  background: #ffffff;
+  border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid #E6D8C3;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.payment-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
 }
 
 .payment-header {
@@ -91,12 +133,13 @@
 
 .reservation-info h4 {
   margin: 0 0 0.5rem 0;
-  color: #c9b5b5;
+  color: #333;
   font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .customer-name {
-  color: #a0a0a0;
+  color: #666;
   font-size: 0.9rem;
 }
 
@@ -121,12 +164,12 @@
 
 .detail-row .label {
   font-weight: 500;
-  color: #a0a0a0;
+  color: #5D866C;
 }
 
 .amount {
   font-weight: bold;
-  color: #28a745;
+  color: #5D866C;
   font-size: 1.1rem;
 }
 
@@ -138,17 +181,19 @@
 
 .approve-btn {
   padding: 0.6rem 1.2rem;
-  background: #28a745;
+  background: #5D866C;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .approve-btn:hover {
-  background: #218838;
+  background: #4a6b5a;
+  transform: translateY(-2px);
 }
 
 .reject-btn {
@@ -156,14 +201,16 @@
   background: #dc3545;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .reject-btn:hover {
   background: #c82333;
+  transform: translateY(-2px);
 }
 
 /* Modal Styles */
@@ -181,14 +228,14 @@
 }
 
 .modal-content {
-  background: #430b60;
-  border-radius: 10px;
+  background: #ffffff;
+  border-radius: 16px;
   padding: 0;
   max-width: 500px;
   width: 90%;
   max-height: 80vh;
   overflow-y: auto;
-  border: 1px solid #650389;
+  border: 1px solid #E6D8C3;
 }
 
 .modal-header {
@@ -196,18 +243,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 1px solid #650389;
+  border-bottom: 1px solid #E6D8C3;
 }
 
 .modal-header h3 {
   margin: 0;
-  color: #c9b5b5;
+  color: #333;
 }
 
 .close-btn {
   background: none;
   border: none;
-  color: #c9b5b5;
+  color: #666;
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
@@ -228,7 +275,7 @@
 
 .modal-body p {
   margin-bottom: 1rem;
-  color: #c9b5b5;
+  color: #333;
 }
 
 .form-group {
@@ -238,7 +285,7 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #c9b5b5;
+  color: #333;
   font-weight: 500;
 }
 
@@ -247,10 +294,10 @@
 .form-group textarea {
   width: 100%;
   padding: 0.7rem;
-  background: #333;
-  color: #ccc;
-  border: 1px solid #650389;
-  border-radius: 4px;
+  background: #ffffff;
+  color: #333;
+  border: 2px solid #E6D8C3;
+  border-radius: 8px;
   font-size: 0.9rem;
 }
 
@@ -258,7 +305,8 @@
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #0350a2;
+  border-color: #5D866C;
+  box-shadow: 0 0 0 3px rgba(93, 134, 108, 0.1);
 }
 
 .modal-footer {
@@ -266,7 +314,7 @@
   justify-content: flex-end;
   gap: 1rem;
   padding: 1.5rem;
-  border-top: 1px solid #650389;
+  border-top: 1px solid #E6D8C3;
 }
 
 .cancel-btn {
@@ -274,25 +322,29 @@
   background: #6c757d;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 .cancel-btn:hover {
   background: #5a6268;
+  transform: translateY(-2px);
 }
 
 .confirm-btn {
   padding: 0.6rem 1.2rem;
-  background: #28a745;
+  background: #5D866C;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 .confirm-btn:hover {
-  background: #218838;
+  background: #4a6b5a;
+  transform: translateY(-2px);
 }

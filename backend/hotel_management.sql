@@ -55,6 +55,7 @@ CREATE TABLE customers (
   account_id INT,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
+  status ENUM('check-in', 'check-out', 'left') DEFAULT 'left'
   FOREIGN KEY (account_id) REFERENCES accounts(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

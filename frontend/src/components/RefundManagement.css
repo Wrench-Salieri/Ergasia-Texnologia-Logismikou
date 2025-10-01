@@ -236,14 +236,14 @@
 }
 
 .modal-content {
-  background: #430b60;
-  border-radius: 10px;
+  background: #ffffff;
+  border-radius: 16px;
   padding: 0;
   max-width: 500px;
   width: 90%;
   max-height: 80vh;
   overflow-y: auto;
-  border: 1px solid #650389;
+  border: 1px solid #E6D8C3;
 }
 
 .modal-header {
@@ -256,7 +256,7 @@
 
 .modal-header h3 {
   margin: 0;
-  color: #c9b5b5;
+  color: #333;
 }
 
 .close-btn {
@@ -283,7 +283,7 @@
 
 .modal-body p {
   margin-bottom: 1rem;
-  color: #c9b5b5;
+  color: #333;
 }
 
 .form-group {
